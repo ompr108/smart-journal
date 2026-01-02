@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trading Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>Trading Journal</h2>
+    <a href="/">Dashboard</a>
+    <a href="/add-trade">Add Trade</a>
+</div>
+
+<div class="main">
+
+<div class="cards">
+    <div class="card"><h3>Total Trades</h3><p>{{ total_trades }}</p></div>
+    <div class="card"><h3>Winning Trades</h3><p>{{ winning_trades }}</p></div>
+    <div class="card"><h3>Win Rate</h3><p>{{ win_rate }}%</p></div>
+</div>
+
+<div class="chart-box">
+    <h3>Profit / Loss Chart</h3>
+    <canvas id="profitChart"></canvas>
+</div>
+
+<table>
+<tr>
+    <th>ID</th>
+    <th>Symbol</th>
+    <th>Type</th>
+    <th>Entry</th>
+    <th>Exit</th>
+    <th>Lot</th>
+    <th>Pips</th>
+    <th>Profit</th>
+    <th>Action</th>
+</tr>
+
+{% for trade in trades %}
+<tr>
+    <td>{{ trade.id }}</td>
+    <td>{{ trade.symbol }}</td>
+    <td>{{ trade.trade_type }}</td>
+    <td>{{ trade.entry_price }}</td>
+    <td>{{ trade.exit_price }}</td>
+    <td>{{ trade.lot_size }}</td>
+    <td>{{ trade.pips }}</td>
+    <td>{{ trade.profit }}</td>
+    <td>
+        <a href="/delete-trade/{{ trade.id }}" onclick="return confirm('Delete trade?')">
+            Delete
+        </a>
+    </td>
+</tr>
+{% endfor %}
+</table>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const profitData = JSON.parse('{{ profits | tojson }}');
+
+new Chart(document.getElementById('profitChart'), {
+    type: 'line',
+    data: {
+        labels: profitData.map((_, i) => 'Trade ' + (i + 1)),
+        datasets: [{
+            label: 'Profit / Loss',
+            data: profitData,
+            borderWidth: 2
+        }]
+    }
+});
+</script>
+
+</body>
+</html>

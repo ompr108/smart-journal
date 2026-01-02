@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Trade</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <h2>Trading Journal</h2>
+    <a href="/">Dashboard</a>
+    <a href="/add-trade">Add Trade</a>
+</div>
+
+<!-- Main Content -->
+<div class="main">
+
+    <h2>Add Trade</h2>
+
+    <form method="POST" action="/add-trade">
+
+        <!-- SYMBOL -->
+        <label>Symbol:</label><br>
+        <select name="symbol" required>
+            <option value="">Select Symbol</option>
+            <option value="EURUSD">EURUSD</option>
+            <option value="GBPUSD">GBPUSD</option>
+            <option value="USDJPY">USDJPY</option>
+            <option value="XAUUSD">XAUUSD</option>
+        </select>
+        <br><br>
+
+        <!-- TRADE TYPE -->
+        <label>Trade Type:</label><br>
+        <select name="trade_type" required>
+            <option value="">Select Type</option>
+            <option value="BUY">BUY</option>
+            <option value="SELL">SELL</option>
+        </select>
+        <br><br>
+
+        <!-- ENTRY PRICE -->
+        <label>Entry Price:</label><br>
+        <input type="number" step="0.01" name="entry_price" required>
+        <br><br>
+
+        <!-- EXIT PRICE -->
+        <label>Exit Price:</label><br>
+        <input type="number" step="0.01" name="exit_price" required>
+        <br><br>
+
+        <!-- LOT SIZE -->
+        <label>Lot Size:</label><br>
+        <input type="number" step="0.01" name="lot_size" required>
+        <br><br>
+
+        <!-- STRATEGY -->
+        <label>Strategy Name:</label><br>
+        <input type="text" name="strategy" placeholder="e.g. Breakout" required>
+        <br><br>
+
+        <!-- SUBMIT -->
+        <button type="submit">Save Trade</button>
+
+    </form>
+
+</div>
+
+</body>
+</html>
